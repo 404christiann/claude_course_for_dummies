@@ -1,0 +1,117 @@
+---
+title: "The Agentic Loop: Gather → Act → Verify"
+slug: "the-agentic-loop"
+section: 1
+duration: "7 min"
+objectives:
+  - Understand the three-step agentic loop Claude Code runs on every task
+  - Know why verification matters and how to prompt for it
+  - Spot when the loop breaks down and what to do about it
+prerequisites:
+  - what-is-claude-code
+---
+
+## Why This Matters
+
+Claude Code doesn't just generate text and hand it to you. It runs a loop — repeatedly gathering information, taking action, and checking its own work. Understanding this loop is the foundation for using Claude Code well. Most beginner mistakes happen because people don't realize the loop exists, or they interrupt it too early.
+
+## The Key Idea
+
+Every meaningful Claude Code task runs through three phases: **Gather** (read context and understand what to do), **Act** (make changes or run commands), and **Verify** (check that the action did what was intended). This loop repeats until the task is complete.
+
+## Plain-English Explanation
+
+When you give Claude Code a task, it doesn't immediately start typing code. First it gathers: it reads relevant files, checks existing tests, looks at your project structure, and figures out what it's actually dealing with. This is why Claude Code sometimes seems slow to start — it's doing important reconnaissance.
+
+Then it acts: it writes code, runs commands, makes edits. You'll see this happening in real time.
+
+Then it verifies: it checks whether the action worked. Did the tests pass? Does the file look right? Is the output what was expected? If something's off, it loops back to gather more context and try again.
+
+This is fundamentally different from a chatbot that just returns text. Claude Code is **self-correcting** — within limits.
+
+```
+┌────────────┐
+│   GATHER   │  Read files, understand codebase, check context
+└─────┬──────┘
+      │
+      ▼
+┌────────────┐
+│    ACT     │  Write code, run commands, make edits
+└─────┬──────┘
+      │
+      ▼
+┌────────────┐
+│   VERIFY   │  Run tests, read output, check for errors
+└─────┬──────┘
+      │
+      └──► Did it work? No → loop back to GATHER
+                           Yes → done
+```
+
+## Concrete Example
+
+You ask Claude Code: *"Add input validation to the login form so empty emails are rejected."*
+
+**Gather phase:**
+- Reads `app/components/LoginForm.tsx`
+- Reads `app/api/auth/route.ts`
+- Checks if there are existing tests for the form
+- Notes the current validation pattern used elsewhere in the codebase
+
+**Act phase:**
+- Adds a client-side check for empty email before form submission
+- Adds a server-side check in the API route
+- Writes a test for the new behavior
+
+**Verify phase:**
+- Runs the test suite: `npm test`
+- Reads the output
+- If tests pass: reports success
+- If tests fail: reads the error, adjusts the code, runs tests again
+
+You didn't have to do any of that manually.
+
+## Common Mistakes
+
+**Interrupting the gather phase.** If Claude Code starts reading a lot of files before doing anything, that's normal and important. Let it finish. Interrupting it means it will act with incomplete context.
+
+**Skipping verification prompts.** If you ask Claude Code to make a change but don't ask it to verify, it often won't run tests automatically. Be explicit: *"Make the change and run the tests to confirm it works."*
+
+**Giving tasks with no way to verify.** Claude Code can't verify a change worked if there's no test, no command to run, and no observable output. When your task has no natural verification step, tell Claude Code what "done" looks like: *"Make this change and print the output of the function so I can check it."*
+
+**Letting it loop too long on a failing task.** Sometimes Claude Code gets stuck in a loop, trying slightly different approaches to the same broken thing. If it loops more than 2-3 times on the same error, interrupt it and reframe the task.
+
+<Callout type="warning">
+Claude Code's self-correction is good but not perfect. It can confidently fix a symptom while missing the root cause. Always read the final diff before accepting big changes.
+</Callout>
+
+## How to Write Better Task Prompts
+
+The loop works better when you give it clear boundaries:
+
+| Weak prompt | Stronger prompt |
+|---|---|
+| "Fix the bug" | "Fix the bug in `auth.ts` line 47 — the token isn't being decoded. Run the auth tests after." |
+| "Add a feature" | "Add a search filter to the user list. Filter by name only. Write a test for it." |
+| "Clean this up" | "Refactor `utils.js` to remove duplicate functions. Don't change any behavior. Run tests after." |
+
+The pattern is: **what** to do + **where** to do it + **how to verify** it worked.
+
+<Callout type="tip">
+The most powerful word you can add to any Claude Code prompt is *"then verify it."* It explicitly triggers the verify phase and usually improves results.
+</Callout>
+
+## Quick Exercise
+
+Give Claude Code a task that has all three phases explicitly built into the prompt. Use this template:
+
+> Read [file or folder]. Then [action]. Then verify by [check].
+
+Example:
+> Read `package.json`. Then add `"lint": "eslint ."` to the scripts section. Then run `npm run lint` to verify there are no config errors.
+
+Try it and observe the loop happening in real time.
+
+<Exercise>
+Look at the last three things you've asked an AI assistant to help you with. For each one, identify: Was there a clear verification step? If not, rewrite the prompt to include one. Notice how much more concrete the task becomes.
+</Exercise>

@@ -1,0 +1,82 @@
+---
+title: "What Claude Code Is"
+slug: "what-is-claude-code"
+section: 1
+duration: "5 min"
+objectives:
+  - Understand what Claude Code is and what problem it solves
+  - Know the difference between Claude Code and regular Claude
+  - Understand when Claude Code is the right tool
+prerequisites: []
+---
+
+## Why This Matters
+
+Before you can use a tool effectively, you need to understand what it actually is — not just the marketing description, but the mental model. Claude Code is different enough from other AI tools that the wrong mental model will make you use it badly.
+
+## The Key Idea
+
+Claude Code is an AI agent that lives in your terminal and can take actions on your computer — reading files, writing code, running commands, and browsing the web — on your behalf. It's not a chat interface. It's an agent.
+
+## Plain-English Explanation
+
+Most people first encounter Claude as a chat product: you type a question, Claude replies, you copy the answer somewhere. That's useful, but it requires *you* to be the one actually doing things. You copy the code into your editor. You paste the error back in. You run the commands yourself.
+
+Claude Code is different. It runs in your terminal and has direct access to your file system, your shell, and a browser. When you ask it to fix a bug, it can actually open the file, read the code, make the edit, run the tests, and tell you what happened — all without you touching anything.
+
+The result is that Claude Code can operate more like a **pair programmer or junior engineer** than like a search engine. You give it a task; it figures out the steps and executes them.
+
+## Concrete Example
+
+**Without Claude Code:**
+1. You describe a bug in the chat window
+2. Claude gives you code
+3. You open your editor
+4. You find the right file
+5. You paste in the change
+6. You run the tests yourself
+7. You copy the error message back to Claude
+8. Repeat
+
+**With Claude Code:**
+1. You describe the bug in your terminal
+2. Claude Code reads the relevant files, makes the edit, runs the tests, and reports back
+3. Done
+
+The loop shrinks dramatically.
+
+## Common Mistakes
+
+**Treating it like a chatbot.** Claude Code is optimized for taking action, not for back-and-forth conversation. Give it clear tasks, not open-ended questions.
+
+**Not reading what it's doing.** Claude Code will show you what commands and edits it's making. Pay attention. This is how you learn from it and catch mistakes early.
+
+**Expecting perfection on complex tasks.** Claude Code works best when you break large tasks into smaller ones. A task like "rewrite my entire backend" will go worse than "refactor the auth module to use JWTs."
+
+**Not setting context.** Claude Code doesn't know your codebase from scratch. The more relevant context you give it upfront — what the project does, what conventions you use, what you've already tried — the better the output.
+
+<Callout type="tip">
+Think of Claude Code as a capable but new colleague. It needs clear instructions, relevant context, and occasional course corrections. It is not a magic button.
+</Callout>
+
+## Quick Exercise
+
+Open your terminal and run:
+
+```bash
+claude --version
+```
+
+If Claude Code is installed, you'll see the version number. If not, your next step is the installation lesson.
+
+Then run:
+
+```bash
+claude "What files are in the current directory? List them."
+```
+
+Watch what Claude Code does. It will use its tools to look at your file system and give you a real answer. That's the first glimpse of what the whole course is about.
+
+<Exercise>
+After trying the commands above, write down one task in your current work (code, writing, research — anything) where having Claude Code take direct action instead of just giving you advice would save meaningful time. Keep this in mind as you move through the course.
+</Exercise>

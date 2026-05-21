@@ -1,0 +1,145 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-manrope);
+  --font-heading: var(--font-sora);
+  --font-mono: var(--font-jetbrains);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --font-manrope:
+    "Avenir Next", Avenir, "Segoe UI", "Helvetica Neue", Helvetica, Arial,
+    system-ui, sans-serif;
+  --font-sora:
+    "Avenir Next", "Segoe UI Semibold", "Trebuchet MS", "Helvetica Neue",
+    Helvetica, Arial, system-ui, sans-serif;
+  --font-jetbrains:
+    "SFMono-Regular", "SF Mono", "Cascadia Code", "Roboto Mono",
+    "Source Code Pro", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* ── Warm neutral base ── */
+  --background:         #F8F7F4;
+  --foreground:         #1F2937;
+  --card:               #FFFFFF;
+  --card-foreground:    #1F2937;
+  --popover:            #FFFFFF;
+  --popover-foreground: #1F2937;
+
+  /* ── Teal accent ── */
+  --primary:            #0F766E;
+  --primary-foreground: #FFFFFF;
+  --primary-soft:       #CCFBF1;
+
+  /* ── Neutral surfaces ── */
+  --secondary:          #F8F7F4;
+  --secondary-foreground: #1F2937;
+  --muted:              #F3F2EF;
+  --muted-foreground:   #6B7280;
+  --accent:             #CCFBF1;
+  --accent-foreground:  #0F766E;
+  --destructive:        #DC2626;
+
+  /* ── Borders & inputs ── */
+  --border:             #E7E5E4;
+  --input:              #E7E5E4;
+  --ring:               #0F766E;
+  --radius:             0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-manrope), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-sora), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+  }
+  code, pre, kbd, samp {
+    font-family: var(--font-jetbrains), monospace;
+  }
+}
+
+/* Brand gradient text — teal to emerald */
+.gradient-text {
+  background: linear-gradient(135deg, #0F766E, #059669);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Dot-grid background using teal */
+.dot-grid {
+  background-image: radial-gradient(circle, #0F766E22 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Hover glow in teal */
+.glow-card {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.glow-card:hover {
+  box-shadow: 0 0 0 1px #0F766E26,
+              0 8px 32px #0F766E1A;
+  transform: translateY(-2px);
+}
+
+.lesson-page-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.lesson-surface {
+  border: 1px solid #d7ede8;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow:
+    0 18px 50px rgba(15, 118, 110, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(14px);
+}
+
+.lesson-terminal-surface {
+  border: 1px solid rgba(15, 118, 110, 0.15);
+  background:
+    linear-gradient(180deg, rgba(18, 24, 27, 0.98) 0%, rgba(22, 31, 35, 0.96) 100%);
+  box-shadow:
+    0 18px 50px rgba(15, 118, 110, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.lesson-divider {
+  height: 1px;
+  background:
+    linear-gradient(90deg, rgba(15, 118, 110, 0) 0%, rgba(15, 118, 110, 0.18) 18%, rgba(215, 237, 232, 0.92) 52%, rgba(15, 118, 110, 0.18) 82%, rgba(15, 118, 110, 0) 100%);
+}
